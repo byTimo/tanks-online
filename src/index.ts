@@ -1,28 +1,14 @@
-import {Game, Types} from "phaser";
+import { Game, Types, Scene, Display, GameObjects, Physics } from "phaser";
+import { DungeonScene } from "./slasher/scenes/DungeonScene";
+import { slasherStarter } from "./slasher";
+import { flyStarter } from "./fly";
 
-const config: Types.Core.GameConfig = {
-    type: Phaser.AUTO, // Which renderer to use
-    width: 800, // Canvas width in pixels
-    height: 600, // Canvas height in pixels
-    parent: "game-container", // ID of the DOM element to add the canvas to
-    scene: {
-        preload: preload,
-        create: create,
-        update: update,
-
-    }
+const gameMap: Record<string, any> = {
+    "#slasher": slasherStarter,
+    "#fly": flyStarter
 }
+
+const gameName = window.location.hash;
+const config = gameMap[gameName];
 
 const game = new Game(config);
-
-function preload() {
-    // Runs once, loads up assets like images and audio
-}
-
-function create() {
-    // Runs once, after all assets in preload are loaded
-}
-
-function update(time: any, delta: any) {
-    // Runs once per frame for the duration of the scene
-}
