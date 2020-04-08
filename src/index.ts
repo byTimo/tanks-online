@@ -1,14 +1,22 @@
-import { Game, Types, Scene, Display, GameObjects, Physics } from "phaser";
-import { DungeonScene } from "./slasher/scenes/DungeonScene";
+import { Game } from "phaser";
 import { slasherStarter } from "./slasher";
 import { flyStarter } from "./fly";
+import { tanksStarter } from "./tanksPhaser";
+import * as ex from "excalibur";
+import { game } from "./tanks";
 
 const gameMap: Record<string, any> = {
     "#slasher": slasherStarter,
-    "#fly": flyStarter
+    "#fly": flyStarter,
+    "#tanksPhaser": tanksStarter,
+    "#tanks": game,
 }
 
 const gameName = window.location.hash;
-const config = gameMap[gameName];
+const config = gameMap[gameName] || game;
 
-const game = new Game(config);
+if (config instanceof ex.Engine) {
+    config.start();
+} else {
+    new Game(config);
+}

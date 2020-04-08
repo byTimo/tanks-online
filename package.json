@@ -12,13 +12,15 @@
   "devDependencies": {
     "html-webpack-plugin": "^4.0.2",
     "ts-loader": "^6.2.2",
-    "typescript": "^3.8.3",
+    "typescript": "3.8.3",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.10.3",
+    "iterable-chain": "2.0.0-alpha.1"
   },
   "dependencies": {
-    "phaser": "^3.22.0",
-    "@mikewesthad/dungeon": "^2.0.1"
+    "@mikewesthad/dungeon": "^2.0.1",
+    "excalibur": "0.23.0",
+    "phaser": "^3.22.0"
   }
 }
