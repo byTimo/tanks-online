@@ -41,21 +41,28 @@ export class Player extends Actor {
         if (engine.input.keyboard.isHeld(Input.Keys.D)) {
             this.body.rotation += 0.03;
         }
-        this.direction = Vector.Right.rotate(this.body.rotation);
-        
+
+        this.direction = Vector.Right.rotate(this.rotation);
+        const isSame = this.direction.dot(this.vel) > 0;
+        let vel = Math.min(100, this.vel.magnitude());
+        vel = vel > 1 ? vel : 0;
+
+        this.vel = this.direction.scale(vel).scale(isSame ? 1 : -1);
+
+        this.acc = Vector.Zero;
 
         if (engine.input.keyboard.isHeld(Input.Keys.W)) {
-            this.acc = this.direction.scale(150);
+            this.acc.addEqual(this.direction.scale(150));
         } else if (engine.input.keyboard.isHeld(Input.Keys.S)) {
-            this.acc = this.direction.scale(-150);
-        } else {
-            this.acc = this.vel.equals(Vector.Zero, 0.1) ? Vector.Zero : this.vel.normalize().negate().scale(25)
+            this.acc.addEqual(this.direction.scale(-150));
         }
+
+        this.acc.addEqual(vel === 0 ? Vector.Zero : this.vel.negate().scale(2));
     }
 
     public draw(ctx: CanvasRenderingContext2D, delta: number) {
         super.draw(ctx, delta);
-        this.debugDraw(ctx);
+        // this.debugDraw(ctx);
         // DrawingHelper.drawLine(ctx, this.pos, this.vel, Color.Black.toString(), true);
         // DrawingHelper.drawLine(ctx, this.pos, this.acc, Color.Orange.toString(), true)
         // DrawingHelper.drawLine(ctx, this.pos, this.direction.scale(20), Color.Green.toString(), true);;
